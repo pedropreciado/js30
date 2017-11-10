@@ -13,11 +13,11 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 ctx.fillStyle = "rgb(33, 33, 33)"
-ctx.fillRect(0, 0, canvas.width, canvas.height)
+ctx.fillRect(0, 0, canvas.width / 2, canvas.height)
 ctx.strokeStyle = "#BADA55";
 ctx.lineJoin = "round";
 ctx.lineCap = "round";
-ctx.lineWidth = 50;
+ctx.lineWidth = 100;
 let hue = 0;
 let isDrawing = false;
 let lastX = 0;
@@ -29,7 +29,7 @@ function draw(event) {
   ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`
   ctx.beginPath();
   ctx.moveTo(lastX, lastY);
-  ctx.lineWidth = hue;
+  ctx.lineWidth = hue % 100;
   ctx.lineTo(event.offsetX, event.offsetY);
   ctx.stroke();
   lastX = event.offsetX;
@@ -38,15 +38,6 @@ function draw(event) {
   hue %= 360;
   let direction;
 
-  if (ctx.lineWidth >= 100 || ctx.lineWidth <= 1) {
-    direction = !direction;
-  }
-
-  if (direction) {
-    ctx.lineWidth += 34;
-  } else {
-    ctx.lineWidth -= 65;
-  }
 }
 
 canvas.addEventListener("mousemove", draw);
